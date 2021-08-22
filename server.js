@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-//for development
 db.sequelize.sync({force: true}).then(() => {
     console.log("DROP and re-sync db.")
 }).catch((e) => {
