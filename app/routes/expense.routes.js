@@ -8,6 +8,8 @@ module.exports = app => {
 
     router.post("/",VerifyToken,expenses.create);
     router.get("/",VerifyToken,expenses.getExpenseByUserId);
+    router.get("/getExpenseById",VerifyToken, expenses.getExpenseByExpenseId);
+    router.patch("/updateExpense",VerifyToken, expenses.updateExpense);
 
 
     app.use("/api/expense", router);

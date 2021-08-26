@@ -65,14 +65,74 @@ exports.getExpenseByUserId = (req, res) => {
 exports.getExpenseByExpenseId = (req, res) => {
 
     const userId = req.user.id
+    const expenseId = req.query.expenseId
 
-    Expense.findAll({where : {userId: userId}})
+    if(!expenseId){
+        res.status(400).send({
+            error:true,
+            message:"Expense Id required"
+        });
+        return;
+    }
+
+    Expense.findOne({where : {
+        userId: userId,
+        id: expenseId
+    }})
     .then(data => {
         res.send({
             error: false,
             message: "Expense details fetched",
             data: data
         })
+    })
+    .catch(err => {
+        res.send({
+            error: true,
+            message: `${err}`
+        })
+    })
+
+}
+
+exports.updateExpense = (req, res) => {
+
+    const userId = req.user.id
+    const expenseBody = {
+        title: req.body.title,
+        amount: req.body.amount,
+        id: req.body.expenseId
+    }
+
+    if(!expenseBody.title || !expenseBody.amount || !expenseBody.id){
+        res.status(400).send({
+            error:true,
+            message:"Insuffient fields"
+        });
+        return;
+    }
+
+    Expense.update({
+        title: expenseBody.title,
+        amount: expenseBody.amount
+    },{
+        where: {
+            id: expenseBody.id,
+            userId: userId
+        }
+    })
+    .then(data  => {
+        if(data[0] === 1){
+            res.send({
+                error: false,
+                message: "Expense updated"
+            })
+        }else{
+            res.send({
+                error: true,
+                message: "Expense not updated"
+            })
+        }
     })
     .catch(err => {
         res.send({
