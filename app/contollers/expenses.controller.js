@@ -4,9 +4,9 @@ const Expense = db.expenses;
 const Op = db.sequelize.Op;
 
 exports.create = (req, res) => {
-    const expenseBody = req.body    ;
+    const expenseBody = req.body;
 
-    if(!expenseBody.title || !expenseBody.amount){
+    if(!expenseBody.title || !expenseBody.amount || !expenseBody.date){
         res.status(400).send({
             error:true,
             message:"Insuffient fields"
@@ -14,12 +14,15 @@ exports.create = (req, res) => {
         return;
     }
 
+    console.log(`expenseBody: ${expenseBody}`)
+
     const userId = req.user.id
 
     const expense = {
         title: expenseBody.title,
         amount: expenseBody.amount,
         userId: userId,
+        date: expenseBody.date
     };
 
 
