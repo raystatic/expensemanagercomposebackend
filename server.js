@@ -14,18 +14,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-// db.sequelize.sync({force: true}).then(() => {
-//     console.log("DROP and re-sync db.")
-// }).catch((e) => {
-//     console.log(`DB sync failed due to: ${e}`);
-// })
-
-//for production
-db.sequelize.sync().then(() => {
-    console.log("re-sync db.")
+db.sequelize.sync({force: true}).then(() => {
+    console.log("DROP and re-sync db.")
 }).catch((e) => {
     console.log(`DB sync failed due to: ${e}`);
 })
+
+//for production
+// db.sequelize.sync().then(() => {
+//     console.log("re-sync db.")
+// }).catch((e) => {
+//     console.log(`DB sync failed due to: ${e}`);
+// })
 
 app.get("/",(req, res) => {
     res.json({
