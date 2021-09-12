@@ -10,6 +10,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         userId: {
             type: Sequelize.STRING
+        },
+        date:{
+            type:Sequelize.STRING
         }
     });
 
