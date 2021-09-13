@@ -104,10 +104,11 @@ exports.updateExpense = (req, res) => {
     const expenseBody = {
         title: req.body.title,
         amount: req.body.amount,
-        id: req.body.expenseId
+        id: req.body.expenseId,
+        date: req.body.date
     }
 
-    if(!expenseBody.title || !expenseBody.amount || !expenseBody.id){
+    if(!expenseBody.title || !expenseBody.amount || !expenseBody.id || !expenseBody.date){
         res.status(400).send({
             error:true,
             message:"Insuffient fields"
@@ -117,7 +118,8 @@ exports.updateExpense = (req, res) => {
 
     Expense.update({
         title: expenseBody.title,
-        amount: expenseBody.amount
+        amount: expenseBody.amount,
+        date: expenseBody.date
     },{
         where: {
             id: expenseBody.id,
