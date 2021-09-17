@@ -10,6 +10,8 @@ module.exports = app => {
 
     router.get("/", VerifyToken,users.getUserById);
 
+    router.get("/all",users.getAllUsers);
+
     app.use("/api/user", router);
 
 }

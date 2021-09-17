@@ -86,3 +86,21 @@ exports.getUserById = (req, res) => {
     })
 
 }
+
+exports.getAllUsers = (req, res) => {
+
+    User.findAll()
+    .then(data => {
+        res.send({
+            error:false,
+            data:data
+        });
+    })
+    .catch(err => {
+        res.send({
+            error:true,
+            message:`${err}`
+        });
+    })
+
+}
