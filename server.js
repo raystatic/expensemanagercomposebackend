@@ -7,9 +7,7 @@ const app = express();
 
 dotenv.config();
 
-app.use(cors({
-    origin:['https://expsense-admin.herokuapp.com/']
-}));
+app.use(cors());
 
 app.use(express.json());
 
