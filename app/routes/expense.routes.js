@@ -10,6 +10,7 @@ module.exports = app => {
     router.get("/",VerifyToken,expenses.getExpenseByUserId);
     router.get("/getExpenseById",VerifyToken, expenses.getExpenseByExpenseId);
     router.patch("/updateExpense",VerifyToken, expenses.updateExpense);
+    router.delete("/deleteExpenseById", VerifyToken,expenses.deleteById)
 
 
     app.use("/api/expense", router);

@@ -147,3 +147,34 @@ exports.updateExpense = (req, res) => {
     })
 
 }
+
+exports.deleteById = (req, res) => {
+
+    const userId = req.user.id;
+    const expenseId = req.query.expenseId;
+
+    Expense.destroy({
+        where: {
+            userId: userId,
+            id: expenseId
+        }
+    }).then(data => {
+        if(data == 1){
+            res.send({
+                error:false,
+                message:"Expense deleted successfully!"
+            })
+        }else{
+            res.send({
+                error:true,
+                message:"Expense not found!"
+            })
+        }
+    }).catch(err => {
+        res.send({
+            error:true,
+            message: `${err}`
+        })
+    })
+
+}
